@@ -1,31 +1,11 @@
 import {Observable} from 'rxjs/Observable';
+import {fromEvent} from 'rxjs/observable/fromEvent';
 
-let observable = Observable.create((observer: any)=> {
-  
-  try {
+let observable = fromEvent(document, 'mousemove');
 
-    observer.next('Hey guys!');
-    setInterval(()=> {
-      observer.next('I am good');
-    }, 2000);
-  }
-  catch (err) {
-    observer.error(err);
-  }
-});
-
-let observer = observable.subscribe(
-  (x: any) => addItem(x),
-  (error: any) => addItem(error),
-  () => addItem('Completed'));
-
-let observer2 = observable.subscribe((x: any) => addItem(x));
-
-observer.add(observer2);
-
-setTimeout(()=> {
-  observer.unsubscribe()
-}, 6000)
+setTimeout(() => {
+  let subscription = observable.subscribe((x: any) => addItem(x));
+}, 2000);
 
 
 function addItem(val: any) {
