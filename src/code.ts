@@ -14,10 +14,14 @@ let observable = Observable.create((observer: any)=> {
   }
 });
 
-let observer  = observable.subscribe(
+let observer = observable.subscribe(
   (x: any) => addItem(x),
   (error: any) => addItem(error),
   () => addItem('Completed'));
+
+let observer2 = observable.subscribe((x: any) => addItem(x));
+
+observer.add(observer2);
 
 setTimeout(()=> {
   observer.unsubscribe()
