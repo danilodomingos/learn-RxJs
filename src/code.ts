@@ -1,6 +1,6 @@
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
-let subject = new BehaviorSubject('First');
+let subject = new ReplaySubject(2);
 
 subject.subscribe(
   data => addItem(`Observer 1: ${data}`),
@@ -9,6 +9,7 @@ subject.subscribe(
 );
 
 subject.next('The first thing has been sent');
+subject.next('Another thing has been sent');
 subject.next('... Observer 2 is about to subscribe ...');
 
 let observer2 = subject.subscribe(
